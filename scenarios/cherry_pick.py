@@ -5,8 +5,7 @@ from .model import Scenario
 def generate_scenario(repo_path):
     os.chdir(repo_path)
 
-    # Create main branch with some commits
-    run_git_command(["checkout", "-b", "main"])
+    # Create some commits
     for i in range(3):
         with open(f'file{i}.txt', 'w') as f:
             f.write(f"Content {i}")
