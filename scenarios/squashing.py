@@ -5,7 +5,7 @@ from .model import Scenario
 def generate_scenario(repo_path):
     os.chdir(repo_path)
 
-    run_git_command(["checkout", "-b", "main"])
+    run_git_command(["checkout", "main"])
 
     # Create a feature branch with many small commits
     run_git_command(["checkout", "-b", "feature-branch"])
