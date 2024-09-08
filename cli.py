@@ -6,6 +6,7 @@ import shutil
 from pathlib import Path
 from scenario import scenarios
 from git_commands import run_git_command
+from completed_scenarios import mark_scenario_completed, is_scenario_completed
 
 HOME_DIR = str(Path.home())
 REPO_PATH = os.path.join(HOME_DIR, "git_learning_repo")
@@ -20,7 +21,8 @@ def list_scenarios():
     """List all available scenarios"""
     click.echo("Available scenarios:")
     for idx, scenario in enumerate(scenarios, 1):
-        click.echo(f"{idx}. {scenario['title']}")
+        completed = "✓" if is_scenario_completed(scenario['title']) else " "
+        click.echo(f"{idx}. [{completed}] {scenario['title']}")
 
 def get_current_scenario():
     if os.path.exists(CURRENT_SCENARIO_FILE):
@@ -105,6 +107,7 @@ def check(scenario_name):
 
     if result:
         click.echo("Congratulations! You've successfully completed the task.")
+        mark_scenario_completed(scenario_name)
     else:
         click.echo("Not quite right. Try again or use the 'hint' command for help.")
 
