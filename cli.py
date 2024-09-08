@@ -3,6 +3,7 @@
 import click
 import os
 import shutil
+import subprocess
 from pathlib import Path
 from scenario import scenarios
 
@@ -36,13 +37,12 @@ def start_scenario(scenario_name):
 
     # Initialize Git repository
     try:
-        import git
-        git.Repo.init(REPO_PATH)
-    except ImportError:
-        click.echo("GitPython is not installed. Please install it using 'pip install GitPython'")
+        subprocess.run(['git', 'init'], cwd=REPO_PATH, check=True, capture_output=True, text=True)
+    except subprocess.CalledProcessError as e:
+        click.echo(f"Error initializing Git repository: {e.stderr}")
         return
     except Exception as e:
-        click.echo(f"Error initializing Git repository: {str(e)}")
+        click.echo(f"Unexpected error initializing Git repository: {str(e)}")
         return
 
     try:
