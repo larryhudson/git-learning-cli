@@ -17,13 +17,13 @@ def list_scenarios():
     """List all available scenarios"""
     click.echo("Available scenarios:")
     for idx, scenario in enumerate(scenarios, 1):
-        click.echo(f"{idx}. {scenario.title}")
+        click.echo(f"{idx}. {scenario['title']}")
 
 @cli.command()
 @click.argument('scenario_name')
 def start_scenario(scenario_name):
     """Start a specific scenario"""
-    scenario = next((s for s in scenarios if s.title == scenario_name), None)
+    scenario = next((s for s in scenarios if s['title'] == scenario_name), None)
     if not scenario:
         click.echo(f"Scenario '{scenario_name}' not found.")
         return
@@ -33,13 +33,13 @@ def start_scenario(scenario_name):
     os.mkdir(REPO_PATH)
 
     try:
-        scenario.generate_func(REPO_PATH)
+        scenario['generate_func'](REPO_PATH)
     except Exception as e:
         click.echo(f"Error generating scenario: {str(e)}")
         return
 
-    click.echo(scenario.description)
-    click.echo(f"\nYour task: {scenario.task}")
+    click.echo(scenario['description'])
+    click.echo(f"\nYour task: {scenario['task']}")
     click.echo(f"\nThe Git repository has been set up at: {REPO_PATH}")
     click.echo("Once you've completed the task, use the 'check' command to verify your solution.")
 
@@ -47,7 +47,7 @@ def start_scenario(scenario_name):
 @click.argument('scenario_name')
 def check(scenario_name):
     """Check the solution for a specific scenario"""
-    scenario = next((s for s in scenarios if s.title == scenario_name), None)
+    scenario = next((s for s in scenarios if s['title'] == scenario_name), None)
     if not scenario:
         click.echo(f"Scenario '{scenario_name}' not found.")
         return
@@ -56,7 +56,7 @@ def check(scenario_name):
         click.echo("No active scenario found. Please start a scenario first.")
         return
 
-    result = scenario.check_func(REPO_PATH)
+    result = scenario['check_func'](REPO_PATH)
 
     if result:
         click.echo("Congratulations! You've successfully completed the task.")
@@ -67,12 +67,12 @@ def check(scenario_name):
 @click.argument('scenario_name')
 def hint(scenario_name):
     """Get a hint for a specific scenario"""
-    scenario = next((s for s in scenarios if s.title == scenario_name), None)
+    scenario = next((s for s in scenarios if s['title'] == scenario_name), None)
     if not scenario:
         click.echo(f"Scenario '{scenario_name}' not found.")
         return
 
-    click.echo(scenario.hint)
+    click.echo(scenario['hint'])
 
 @cli.command()
 def reset():
