@@ -28,11 +28,23 @@ def start_scenario(scenario_name):
         click.echo(f"Scenario '{scenario_name}' not found.")
         return
 
+    if 'generator' not in scenario:
+        click.echo(f"Error: The scenario '{scenario_name}' is not properly configured (missing 'generator').")
+        return
+
     if os.path.exists(REPO_PATH):
         shutil.rmtree(REPO_PATH)
     os.mkdir(REPO_PATH)
 
-    scenario_info = scenario['generator'](REPO_PATH)
+    try:
+        scenario_info = scenario['generator'](REPO_PATH)
+    except Exception as e:
+        click.echo(f"Error generating scenario: {str(e)}")
+        return
+
+    if not isinstance(scenario_info, dict) or 'description' not in scenario_info or 'task' not in scenario_info:
+        click.echo("Error: The scenario generator didn't return the expected information.")
+        return
 
     click.echo(scenario_info['description'])
     click.echo(f"\nYour task: {scenario_info['task']}")
