@@ -31,7 +31,7 @@ scenario = Scenario(
     difficulty="Hard",
     description="You've made a large commit that includes changes to multiple unrelated features.",
     task="Split the 'Implement multiple features' commit into three separate commits, one for each feature file.",
-    hint="Use 'git reset HEAD^' to undo the last commit but keep the changes, then stage and commit each file separately.",
+    hint="Using 'git reset HEAD^' will undo the commit, and the changes will be unstaged.",
     generate_func=generate_scenario,
     check_func=check_scenario
 )
