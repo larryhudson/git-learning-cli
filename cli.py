@@ -16,8 +16,8 @@ def cli():
 def list_scenarios():
     """List all available scenarios"""
     click.echo("Available scenarios:")
-    for idx, (name, _) in enumerate(scenarios, 1):
-        click.echo(f"{idx}. {name}")
+    for idx, scenario in enumerate(scenarios, 1):
+        click.echo(f"{idx}. {scenario.title}")
 
 @cli.command()
 @click.argument('scenario_name')
