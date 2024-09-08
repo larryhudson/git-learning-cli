@@ -34,6 +34,17 @@ def start_scenario(scenario_name):
         shutil.rmtree(REPO_PATH)
     os.mkdir(REPO_PATH)
 
+    # Initialize Git repository
+    try:
+        import git
+        git.Repo.init(REPO_PATH)
+    except ImportError:
+        click.echo("GitPython is not installed. Please install it using 'pip install GitPython'")
+        return
+    except Exception as e:
+        click.echo(f"Error initializing Git repository: {str(e)}")
+        return
+
     try:
         scenario['generate_func'](REPO_PATH)
     except Exception as e:
