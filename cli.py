@@ -3,9 +3,9 @@
 import click
 import os
 import shutil
-import subprocess
 from pathlib import Path
 from scenario import scenarios
+from git_commands import run_git_command
 
 HOME_DIR = str(Path.home())
 REPO_PATH = os.path.join(HOME_DIR, "git_learning_repo")
@@ -37,12 +37,9 @@ def start_scenario(scenario_name):
 
     # Initialize Git repository
     try:
-        subprocess.run(['git', 'init'], cwd=REPO_PATH, check=True, capture_output=True, text=True)
-    except subprocess.CalledProcessError as e:
-        click.echo(f"Error initializing Git repository: {e.stderr}")
-        return
+        run_git_command(['init'], REPO_PATH)
     except Exception as e:
-        click.echo(f"Unexpected error initializing Git repository: {str(e)}")
+        click.echo(f"Error initializing Git repository: {str(e)}")
         return
 
     try:
