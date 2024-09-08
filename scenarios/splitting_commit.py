@@ -5,14 +5,6 @@ from .model import Scenario
 def generate_scenario(repo_path):
     os.chdir(repo_path)
 
-    run_git_command(["checkout", "-b", "main"])
-
-    # Create an initial commit
-    with open('README.md', 'w') as f:
-        f.write("# Git Learning Repository\n\nThis repository is for learning Git commands.\n")
-    run_git_command(["add", "README.md"])
-    run_git_command(["commit", "-m", "Initial commit"])
-
     # Create a large commit with changes to multiple files
     for i in range(3):
         with open(f'feature{i}.py', 'w') as f:

@@ -35,9 +35,13 @@ def start_scenario(scenario_name):
         shutil.rmtree(REPO_PATH)
     os.mkdir(REPO_PATH)
 
-    # Initialize Git repository
+    # Initialize Git repository and create initial commit
     try:
         run_git_command(['init'], REPO_PATH)
+        with open(os.path.join(REPO_PATH, 'README.md'), 'w') as f:
+            f.write("# Git Learning Repository\n\nThis repository is for learning Git commands.\n")
+        run_git_command(['add', 'README.md'], REPO_PATH)
+        run_git_command(['commit', '-m', 'Initial commit'], REPO_PATH)
     except Exception as e:
         click.echo(f"Error initializing Git repository: {str(e)}")
         return
