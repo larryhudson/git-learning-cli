@@ -3,9 +3,11 @@
 import click
 import os
 import shutil
+from pathlib import Path
 from scenario import scenarios
 
-REPO_PATH = os.path.join(os.getcwd(), "learning_repo")
+HOME_DIR = str(Path.home())
+REPO_PATH = os.path.join(HOME_DIR, "git_learning_repo")
 
 @click.group()
 def cli():
@@ -41,6 +43,7 @@ def start_scenario(scenario_name):
     click.echo(scenario['description'])
     click.echo(f"\nYour task: {scenario['task']}")
     click.echo(f"\nThe Git repository has been set up at: {REPO_PATH}")
+    click.echo("This is a separate directory in your home folder to avoid conflicts with existing repositories.")
     click.echo("Once you've completed the task, use the 'check' command to verify your solution.")
 
 @cli.command()
