@@ -50,8 +50,11 @@ def start_scenario(scenario_name):
         click.echo(f"Scenario '{scenario_name}' not found.")
         return
 
+    # Delete the working folder if it exists
     if os.path.exists(REPO_PATH):
         shutil.rmtree(REPO_PATH)
+    
+    # Create a new working folder
     os.mkdir(REPO_PATH)
 
     # Initialize Git repository and create initial commit
