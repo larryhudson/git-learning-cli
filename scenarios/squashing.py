@@ -19,7 +19,9 @@ def generate_scenario(repo_path):
 def check_scenario(repo_path):
     os.chdir(repo_path)
     commit_messages = run_git_command(["log", "--format=%s", "feature-branch"]).split("\n")
-    return len(commit_messages) == 1 and commit_messages[0] == "Implement new feature"
+    return (len(commit_messages) == 2 and
+            commit_messages[0] == "Implement new feature" and
+            commit_messages[1] == "Initial commit")
 
 scenario = Scenario(
     title="Squash Commits",
