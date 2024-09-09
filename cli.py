@@ -17,12 +17,34 @@ def cli():
     """Git Learning CLI"""
     pass
 
-def list_scenarios():
+def list_scenarios(difficulty=None):
     """List all available scenarios"""
     click.echo("Available scenarios:")
     for idx, scenario in enumerate(SCENARIOS, 1):
-        completed = "✓" if is_scenario_completed(scenario.title) else " "
-        click.echo(f"{idx}. [{completed}] {scenario.title} (Difficulty: {scenario.difficulty})")
+        if difficulty is None or scenario.difficulty == difficulty:
+            completed = "✓" if is_scenario_completed(scenario.title) else " "
+            click.echo(f"{idx}. [{completed}] {scenario.title} (Difficulty: {scenario.difficulty})")
+
+@cli.command()
+@click.option('--scenario', '-s', type=str, help='The scenario to mark as completed')
+def complete(scenario):
+    """Mark a scenario as completed"""
+    if not scenario:
+        list_scenarios()
+        scenario_number = click.prompt("Enter the number of the scenario you want to mark as completed", type=int)
+        if 1 <= scenario_number <= len(SCENARIOS):
+            scenario = SCENARIOS[scenario_number - 1].title
+        else:
+            click.echo("Invalid scenario number.")
+            return
+
+    scenario_obj = next((s for s in SCENARIOS if s.title == scenario), None)
+    if not scenario_obj:
+        click.echo(f"Scenario '{scenario}' not found.")
+        return
+
+    mark_scenario_completed(scenario_obj.title)
+    click.echo(f"Scenario '{scenario_obj.title}' marked as completed.")
 
 def get_current_scenario():
     if os.path.exists(CURRENT_SCENARIO_FILE):
