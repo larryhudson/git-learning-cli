@@ -18,17 +18,17 @@ This Git Learning CLI is an interactive tool designed to help you improve your G
    cd git-learning-cli
    ```
 
-2. Install the required dependencies:
+2. Install the CLI:
    ```
-   pip install -r requirements.txt
+   pip install .
    ```
 
 ## Usage
 
-The main command to interact with the Git Learning CLI is `python cli.py`. Here are the available commands:
+After installation, you can use the `git-learn` command to interact with the Git Learning CLI. Here are the available subcommands:
 
 - `list`: Display all available scenarios
-- `start_scenario`: Start a specific scenario
+- `start-scenario`: Start a specific scenario
 - `check`: Check your solution for the current scenario
 - `hint`: Get hints for the current scenario
 - `complete`: Mark a scenario as completed
@@ -38,12 +38,12 @@ The main command to interact with the Git Learning CLI is `python cli.py`. Here 
 
 1. List all available scenarios:
    ```
-   python cli.py list
+   git-learn list
    ```
 
 2. Start a scenario:
    ```
-   python cli.py start_scenario
+   git-learn start-scenario
    ```
    You'll be prompted to choose a scenario if you don't specify one.
 
@@ -51,22 +51,22 @@ The main command to interact with the Git Learning CLI is `python cli.py`. Here 
 
 4. Check your solution:
    ```
-   python cli.py check
+   git-learn check
    ```
 
 5. If you need help, use the hint system:
    ```
-   python cli.py hint
+   git-learn hint
    ```
 
 6. Once you've completed a scenario, you can mark it as completed:
    ```
-   python cli.py complete
+   git-learn complete
    ```
 
 7. To start over, reset the current scenario:
    ```
-   python cli.py reset
+   git-learn reset
    ```
 
 ## Scenarios
