@@ -36,17 +36,12 @@ def display_scenario_info():
         click.echo("   " + "-" * 40)
 
 @cli.command()
-@click.option('--scenario', '-s', type=str, help='The scenario to mark as completed')
-@click.option('--info', '-i', is_flag=True, help='Display detailed information about scenarios')
-def list(scenario, info):
-    """List all available scenarios or mark a scenario as completed"""
-    if info:
-        display_scenario_info()
-    elif scenario:
-        complete(scenario)
-    else:
-        list_scenarios()
+def list():
+    """List all available scenarios"""
+    display_scenario_info()
 
+@cli.command()
+@click.argument('scenario', required=False)
 def complete(scenario):
     """Mark a scenario as completed"""
     if not scenario:
@@ -78,12 +73,8 @@ def set_current_scenario(scenario_name):
 
 @cli.command()
 @click.argument('scenario_name', required=False)
-@click.option('--info', '-i', is_flag=True, help='Display detailed information about scenarios')
-def start_scenario(scenario_name, info):
+def start_scenario(scenario_name):
     """Start a specific scenario"""
-    if info:
-        display_scenario_info()
-        return
 
     if not scenario_name:
         list_scenarios()
