@@ -41,7 +41,7 @@ scenario = Scenario(
     difficulty="Medium",
     description="A critical bug fix was made in the 'feature-branch', but it's needed in the 'main' branch immediately.",
     task="Cherry-pick the bug fix commit from 'feature-branch' into 'main'. Then, delete the commit from 'feature-branch'.",
-    hint="Use 'git cherry-pick' with the commit hash of the bug fix. To delete the commit from 'feature-branch', use 'git rebase -i HEAD~n' (replace n with the number of commits to go back), then delete the line with the cherry-picked commit.",
+    hints=["Use 'git cherry-pick' with the commit hash of the bug fix. To delete the commit from 'feature-branch', use 'git rebase -i HEAD~n' (replace n with the number of commits to go back), then delete the line with the cherry-picked commit."],
     generate_func=generate_scenario,
     check_func=check_scenario
 )

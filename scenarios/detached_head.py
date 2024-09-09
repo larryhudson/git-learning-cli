@@ -5,8 +5,6 @@ from .model import Scenario
 def generate_scenario(repo_path):
     os.chdir(repo_path)
 
-    run_git_command(["checkout", "-b", "main"])
-
     # Create some commits
     for i in range(5):
         with open(f'file{i}.txt', 'w') as f:
@@ -42,7 +40,7 @@ scenario = Scenario(
     difficulty="Medium",
     description="You've checked out a specific commit and made changes, ending up in a detached HEAD state.",
     task="Create a new branch called 'recovery' to save your changes, then switch back to the 'main' branch.",
-    hint="Use 'git branch' to create a new branch at your current commit, then checkout main.",
+    hints=["Use 'git branch' to create a new branch at your current commit, then checkout main."],
     generate_func=generate_scenario,
     check_func=check_scenario
 )

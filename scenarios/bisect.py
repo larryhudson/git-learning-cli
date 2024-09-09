@@ -7,8 +7,6 @@ from .model import Scenario
 def generate_scenario(repo_path):
     os.chdir(repo_path)
 
-    run_git_command(["checkout", "-b", "main"])
-
     # Create a simple Python script
     with open('calc.py', 'w') as f:
         f.write("""
@@ -57,7 +55,7 @@ scenario = Scenario(
     difficulty="Hard",
     description="A bug was introduced in the 'multiply' function of calc.py somewhere in the last 20 commits.",
     task="Use git bisect to identify the commit that introduced the bug. The bug causes the multiply function to always add 1 to the correct result.",
-    hint="Start the bisect process, then use a script to test the multiply function at each step.",
+    hints=["Start the bisect process, then use a script to test the multiply function at each step."],
     generate_func=generate_scenario,
     check_func=check_scenario
 )
