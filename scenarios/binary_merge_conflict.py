@@ -36,7 +36,15 @@ scenario = Scenario(
     difficulty="Hard",
     description="There are conflicting changes to a binary file 'image.bin' in 'branch1' and 'branch2'.",
     task="Merge 'branch1' into 'main', then merge 'branch2', resolving the conflict by keeping the version from 'branch2'.",
-    hints=["After the conflict, use 'git checkout --theirs image.bin' to keep the version from the branch you're merging in."],
+    hints=[
+        "The 'git merge' command is used to integrate changes from one branch into another.",
+        "When a merge conflict occurs with binary files, Git cannot automatically resolve the conflict.",
+        "The 'git checkout --theirs <file>' command can be used to choose the version of the file from the branch being merged.",
+        "Alternatively, 'git checkout --ours <file>' keeps the version from the current branch.",
+        "After resolving a conflict, you need to stage the changes with 'git add' before continuing the merge.",
+        "The 'git merge --continue' command completes the merge process after conflicts are resolved.",
+        "If you encounter difficulties, 'git merge --abort' can be used to cancel the merge and start over.",
+    ],
     generate_func=generate_scenario,
     check_func=check_scenario
 )
