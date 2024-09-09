@@ -184,16 +184,16 @@ def reset():
         shutil.rmtree(REPO_PATH)
         if os.path.exists(CURRENT_SCENARIO_FILE):
             os.remove(CURRENT_SCENARIO_FILE)
-        click.echo("The current scenario has been reset. Use the 'start_scenario' command to begin again.")
+        click.echo("The current scenario has been reset. Use the 'start-scenario' command to begin again.")
     else:
-        click.echo("No active scenario found. Use the 'start_scenario' command to begin a new scenario.")
+        click.echo("No active scenario found. Use the 'start-scenario' command to begin a new scenario.")
 
 def get_scenario(scenario_name):
     """Helper function to get the current scenario"""
     if not scenario_name:
         scenario_name = get_current_scenario()
         if not scenario_name:
-            click.echo("No active scenario found. Please start a scenario first.")
+            click.echo("No active scenario found. Please start a scenario using the 'start-scenario' command first.")
             return None
 
     scenario = next((s for s in SCENARIOS if s.title == scenario_name), None)
