@@ -5,8 +5,6 @@ from .model import Scenario
 def generate_scenario(repo_path):
     os.chdir(repo_path)
 
-    run_git_command(["checkout", "main"])
-
     # Create a feature branch with many small commits
     run_git_command(["checkout", "-b", "feature-branch"])
 
@@ -28,7 +26,7 @@ scenario = Scenario(
     difficulty="Medium",
     description="Your 'feature-branch' has 10 small commits that need to be consolidated before merging into 'main'.",
     task="Use interactive rebase to squash these 10 commits into a single commit with the message 'Implement new feature'.",
-    hint="Use 'git rebase -i HEAD~10' and change 'pick' to 'squash' for the commits you want to combine.",
+    hints=["Use 'git rebase -i HEAD~10' and change 'pick' to 'squash' for the commits you want to combine."],
     generate_func=generate_scenario,
     check_func=check_scenario
 )

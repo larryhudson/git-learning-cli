@@ -5,8 +5,6 @@ from .model import Scenario
 def generate_scenario(repo_path):
     os.chdir(repo_path)
 
-    run_git_command(["checkout", "-b", "main"])
-
     # Create a file in main
     with open('app.py', 'w') as f:
         f.write("""
@@ -46,7 +44,7 @@ scenario = Scenario(
     difficulty="Medium",
     description="You need to share your changes in 'feature-branch' with a colleague who doesn't have access to your repository.",
     task="Create a patch file for your changes in 'feature-branch', then apply this patch to 'main'.",
-    hint="Use 'git format-patch' to create the patch and 'git am' to apply it.",
+    hints=["Use 'git format-patch' to create the patch and 'git am' to apply it."],
     generate_func=generate_scenario,
     check_func=check_scenario
 )

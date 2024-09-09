@@ -5,8 +5,6 @@ from .model import Scenario
 def generate_scenario(repo_path):
     os.chdir(repo_path)
 
-    # Set up main branch
-    run_git_command(["checkout", "-b", "main"])
     with open('app.py', 'w') as f:
         f.write("""
 def main():
@@ -68,7 +66,7 @@ scenario = Scenario(
     difficulty="Easy",
     description="You're working on a new feature when a critical bug is reported in the main branch.",
     task="Stash your changes in the 'feature-branch', switch to 'main', fix the typo in the function name (change 'critial_bug' to 'critical_bug'), commit the fix, then return to 'feature-branch' and apply your stashed changes.",
-    hint="Use 'git stash' to save your changes, 'git checkout' to switch branches, and 'git stash pop' to reapply your changes.",
+    hints=["Use 'git stash' to save your changes, 'git checkout' to switch branches, and 'git stash pop' to reapply your changes."],
     generate_func=generate_scenario,
     check_func=check_scenario
 )
