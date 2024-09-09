@@ -59,13 +59,13 @@ scenario = Scenario(
     description="You've made a large commit that includes changes to multiple interdependent features. Your company has a convention where each PR should only contain one commit.",
     task="Split the 'Implement multiple interdependent features in one commit' into three separate branches, each with one commit for a single feature. Ensure that the dependencies between features are maintained.",
     hints=[
-        "You can use either interactive rebase or cherry-pick to split the commit.",
-        "For interactive rebase: On the branch with the complex commit, use 'git rebase -i HEAD~1', change 'pick' to 'edit' for the commit.",
-        "After editing, use 'git reset HEAD^' to unstage changes. Create new branches from this point and commit changes one by one.",
-        "For cherry-pick: Create a new branch from the commit before the complex one.",
-        "Use 'git cherry-pick -n <complex-commit-hash>' to apply changes without committing. Create new branches from this point and commit the changes one by one.",
-        "In both cases, pay attention to the order of the features due to their dependencies.",
-        "Start with feature1, then feature2, and finally feature3 to maintain the correct dependency order."
+        "The 'git rebase -i' command allows you to modify the commit history interactively.",
+        "When using interactive rebase, changing 'pick' to 'edit' for a commit allows you to modify that commit.",
+        "The 'git reset HEAD^' command unstages all changes from the last commit, allowing you to stage and commit them separately.",
+        "The 'git cherry-pick' command applies the changes from a specific commit to your current branch.",
+        "Using 'git cherry-pick -n' applies the changes from a commit without automatically creating a new commit.",
+        "When splitting interdependent features, consider the order of implementation to maintain correct dependencies.",
+        "Creating separate branches for each feature can help organize your work and prepare for individual pull requests."
     ],
     generate_func=generate_scenario,
     check_func=check_scenario
