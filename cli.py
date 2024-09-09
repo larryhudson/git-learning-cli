@@ -4,9 +4,9 @@ import click
 import os
 import shutil
 from pathlib import Path
-from scenarios import SCENARIOS
-from git_commands import run_git_command
-from completed_scenarios import mark_scenario_completed, is_scenario_completed
+from .scenarios import SCENARIOS
+from .git_commands import run_git_command
+from .completed_scenarios import mark_scenario_completed, is_scenario_completed
 
 HOME_DIR = str(Path.home())
 REPO_PATH = os.path.join(HOME_DIR, "git_learning_repo")

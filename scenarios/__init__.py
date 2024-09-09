@@ -8,7 +8,7 @@ def load_scenarios():
                       if f.endswith('.py') and f != '__init__.py' and f != 'model.py']
     
     for scenario_file in scenario_files:
-        module = importlib.import_module(f'.{scenario_file}', package='scenarios')
+        module = importlib.import_module(f'scenarios.{scenario_file}')
         if hasattr(module, 'scenario') and isinstance(module.scenario, Scenario):
             scenarios.append(module.scenario)
 

@@ -8,7 +8,10 @@ setup(
     install_requires=[
         "Click",
     ],
-    py_modules=['cli'],  # Add this line
+    py_modules=['cli', 'git_commands', 'completed_scenarios'],
+    package_data={
+        'scenarios': ['*.py'],
+    },
     entry_points={
         "console_scripts": [
             "git-learn=cli:cli",
