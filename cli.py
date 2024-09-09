@@ -22,7 +22,7 @@ def list_scenarios():
     click.echo("Available scenarios:")
     for idx, scenario in enumerate(SCENARIOS, 1):
         completed = "✓" if is_scenario_completed(scenario.title) else " "
-        click.echo(f"{idx}. [{completed}] {scenario.title}")
+        click.echo(f"{idx}. [{completed}] {scenario.title} (Difficulty: {scenario.difficulty})")
 
 def get_current_scenario():
     if os.path.exists(CURRENT_SCENARIO_FILE):

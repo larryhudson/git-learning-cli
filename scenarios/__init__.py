@@ -12,7 +12,7 @@ def load_scenarios():
         if hasattr(module, 'scenario') and isinstance(module.scenario, Scenario):
             scenarios.append(module.scenario)
 
-    return scenarios
+    return sorted(scenarios, key=lambda s: s.difficulty)
 
 SCENARIOS = load_scenarios()
 
