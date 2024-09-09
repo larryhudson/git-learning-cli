@@ -66,7 +66,12 @@ scenario = Scenario(
     difficulty="Easy",
     description="You're working on a new feature when a critical bug is reported in the main branch.",
     task="Stash your changes in the 'feature-branch', switch to 'main', fix the typo in the function name (change 'critial_bug' to 'critical_bug'), commit the fix, then return to 'feature-branch' and apply your stashed changes.",
-    hints=["Use 'git stash' to save your changes, 'git checkout' to switch branches, and 'git stash pop' to reapply your changes."],
+    hints=[
+        "The 'git stash' command temporarily shelves changes, allowing you to work on something else and come back to it later.",
+        "'git stash list' shows all stashed changesets, useful when you have multiple stashes.",
+        "'git stash apply' reapplies a stash without removing it from the stash list, while 'git stash pop' applies and removes the stash.",
+        "You can create a branch from a stash using 'git stash branch', which can be useful for testing stashed changes.",
+    ],
     generate_func=generate_scenario,
     check_func=check_scenario
 )

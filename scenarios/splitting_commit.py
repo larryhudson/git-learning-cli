@@ -24,10 +24,10 @@ scenario = Scenario(
     description="You've made a large commit that includes changes to multiple unrelated features.",
     task="Split the 'Implement multiple features' commit into three separate commits, one for each feature file.",
     hints=[
-        "Start by using 'git reset HEAD^' to undo the commit. This will unstage all changes.",
-        "Use 'git add' to stage changes for each feature file separately.",
-        "Create a new commit for each feature file using 'git commit -m \"Implement feature X\"'.",
-        "Repeat the process for all three feature files."
+        "The 'git reset' command can move the HEAD and branch pointer, potentially unstaging changes or even discarding commits.",
+        "Interactive staging with 'git add -p' allows you to selectively stage parts of a file, useful for creating more focused commits.",
+        "The 'git commit --amend' command can modify the most recent commit, either changing its message or adding more changes.",
+        "Git's 'cherry-pick' can apply the changes from a specific commit to your current branch, which can be useful in reorganizing commits.",
     ],
     generate_func=generate_scenario,
     check_func=check_scenario

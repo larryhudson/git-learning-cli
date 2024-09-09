@@ -26,7 +26,12 @@ scenario = Scenario(
     difficulty="Medium",
     description="Your 'feature-branch' has 10 small commits that need to be consolidated before merging into 'main'.",
     task="Use interactive rebase to squash these 10 commits into a single commit with the message 'Implement new feature'.",
-    hints=["Use 'git rebase -i HEAD~10' and change 'pick' to 'squash' for the commits you want to combine."],
+    hints=[
+        "Interactive rebase with 'git rebase -i' allows you to modify a series of commits in various ways, including reordering, editing, and combining them.",
+        "During interactive rebase, changing a commit's command from 'pick' to 'squash' or 's' will combine it with the previous commit.",
+        "The 'fixup' command in interactive rebase is similar to 'squash', but it discards the commit message of the fixup commit.",
+        "After squashing commits, you may need to force push with 'git push --force' to update a remote branch, but be cautious as this rewrites history.",
+    ],
     generate_func=generate_scenario,
     check_func=check_scenario
 )
