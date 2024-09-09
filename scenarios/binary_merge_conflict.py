@@ -5,8 +5,6 @@ from .model import Scenario
 def generate_scenario(repo_path):
     os.chdir(repo_path)
 
-    run_git_command(["checkout", "-b", "main"])
-
     # Create a simple binary file (simulated with a text file)
     with open('image.bin', 'wb') as f:
         f.write(b'\x00\x01\x02\x03')
@@ -38,7 +36,7 @@ scenario = Scenario(
     difficulty="Hard",
     description="There are conflicting changes to a binary file 'image.bin' in 'branch1' and 'branch2'.",
     task="Merge 'branch1' into 'main', then merge 'branch2', resolving the conflict by keeping the version from 'branch2'.",
-    hint="After the conflict, use 'git checkout --theirs image.bin' to keep the version from the branch you're merging in.",
+    hints=["After the conflict, use 'git checkout --theirs image.bin' to keep the version from the branch you're merging in."],
     generate_func=generate_scenario,
     check_func=check_scenario
 )
