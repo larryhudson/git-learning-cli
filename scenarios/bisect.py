@@ -55,7 +55,15 @@ scenario = Scenario(
     difficulty="Hard",
     description="A bug was introduced in the 'multiply' function of calc.py somewhere in the last 20 commits.",
     task="Use git bisect to identify the commit that introduced the bug. The bug causes the multiply function to always add 1 to the correct result.",
-    hints=["Start the bisect process, then use a script to test the multiply function at each step."],
+    hints=[
+        "The 'git bisect start' command initiates the bisect process.",
+        "Use 'git bisect bad' to mark the current commit as containing the bug.",
+        "Use 'git bisect good <commit>' to mark a known good commit.",
+        "Git will then checkout a commit halfway between the good and bad commits.",
+        "After testing each commit, use 'git bisect good' or 'git bisect bad' to continue the process.",
+        "The 'git bisect run' command can automate the process using a test script.",
+        "Once the bug is found, 'git bisect reset' will end the bisect session and return to the original HEAD.",
+    ],
     generate_func=generate_scenario,
     check_func=check_scenario
 )
