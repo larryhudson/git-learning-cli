@@ -126,26 +126,19 @@ def start_scenario(scenario_name):
 @click.argument('scenario_name', required=False)
 def check(scenario_name):
     """Check the solution for a specific scenario"""
-    if not scenario_name:
-        scenario_name = get_current_scenario()
-        if not scenario_name:
-            click.echo("No active scenario found. Please start a scenario first.")
-            return
-
-    scenario = next((s for s in SCENARIOS if s.title == scenario_name), None)
+    scenario = get_scenario(scenario_name)
     if not scenario:
-        click.echo(f"Scenario '{scenario_name}' not found.")
         return
 
-    if not os.path.exists(REPO_PATH):
-        click.echo("No active scenario found. Please start a scenario first.")
-        return
+    click.echo(f"\nCurrent Scenario: {scenario.title}")
+    click.echo(f"Description: {scenario.description}")
+    click.echo(f"Task: {scenario.task}\n")
 
     result = scenario.check_func(REPO_PATH)
 
     if result:
         click.echo("Congratulations! You've successfully completed the task.")
-        mark_scenario_completed(scenario_name)
+        mark_scenario_completed(scenario.title)
     else:
         click.echo("Not quite right. Try again or use the 'hint' command for help.")
 
@@ -153,16 +146,13 @@ def check(scenario_name):
 @click.argument('scenario_name', required=False)
 def hint(scenario_name):
     """Get hints for a specific scenario"""
-    if not scenario_name:
-        scenario_name = get_current_scenario()
-        if not scenario_name:
-            click.echo("No active scenario found. Please start a scenario first.")
-            return
-
-    scenario = next((s for s in SCENARIOS if s.title == scenario_name), None)
+    scenario = get_scenario(scenario_name)
     if not scenario:
-        click.echo(f"Scenario '{scenario_name}' not found.")
         return
+
+    click.echo(f"\nCurrent Scenario: {scenario.title}")
+    click.echo(f"Description: {scenario.description}")
+    click.echo(f"Task: {scenario.task}\n")
 
     hint_index = 0
     while hint_index < len(scenario.hints):
@@ -182,6 +172,14 @@ def hint(scenario_name):
 @cli.command()
 def reset():
     """Reset the current scenario"""
+    scenario_name = get_current_scenario()
+    if scenario_name:
+        scenario = next((s for s in SCENARIOS if s.title == scenario_name), None)
+        if scenario:
+            click.echo(f"\nResetting Scenario: {scenario.title}")
+            click.echo(f"Description: {scenario.description}")
+            click.echo(f"Task: {scenario.task}\n")
+
     if os.path.exists(REPO_PATH):
         shutil.rmtree(REPO_PATH)
         if os.path.exists(CURRENT_SCENARIO_FILE):
@@ -189,6 +187,25 @@ def reset():
         click.echo("The current scenario has been reset. Use the 'start_scenario' command to begin again.")
     else:
         click.echo("No active scenario found. Use the 'start_scenario' command to begin a new scenario.")
+
+def get_scenario(scenario_name):
+    """Helper function to get the current scenario"""
+    if not scenario_name:
+        scenario_name = get_current_scenario()
+        if not scenario_name:
+            click.echo("No active scenario found. Please start a scenario first.")
+            return None
+
+    scenario = next((s for s in SCENARIOS if s.title == scenario_name), None)
+    if not scenario:
+        click.echo(f"Scenario '{scenario_name}' not found.")
+        return None
+
+    if not os.path.exists(REPO_PATH):
+        click.echo("No active scenario found. Please start a scenario first.")
+        return None
+
+    return scenario
 
 if __name__ == '__main__':
     cli()
