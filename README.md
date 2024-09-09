@@ -14,7 +14,7 @@ This Git Learning CLI is an interactive tool designed to help you improve your G
 
 1. Clone this repository:
    ```
-   git clone https://github.com/yourusername/git-learning-cli.git
+   git clone https://github.com/larryhudson/git-learning-cli.git
    cd git-learning-cli
    ```
 

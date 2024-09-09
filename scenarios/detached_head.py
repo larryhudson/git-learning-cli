@@ -41,11 +41,11 @@ scenario = Scenario(
     description="You've checked out a specific commit and made changes, ending up in a detached HEAD state.",
     task="Create a new branch called 'recovery' to save your changes, then switch back to the 'main' branch.",
     hints=[
+        "A detached HEAD state occurs when you checkout a specific commit instead of a branch.",
+        "Creating a new branch in a detached HEAD state saves your work from being lost.",
         "The 'git branch <name>' command creates a new branch at the current commit.",
         "Use 'git checkout <branch>' to switch to a different branch.",
         "The 'git status' command shows the current state of the working directory and staging area.",
-        "A detached HEAD state occurs when you checkout a specific commit instead of a branch.",
-        "Creating a new branch in a detached HEAD state saves your work from being lost.",
         "The 'git reflog' command shows a log of where your HEAD has been.",
     ],
     generate_func=generate_scenario,
