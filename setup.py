@@ -8,6 +8,7 @@ setup(
     install_requires=[
         "Click",
     ],
+    py_modules=['cli'],  # Add this line
     entry_points={
         "console_scripts": [
             "git-learn=cli:cli",
