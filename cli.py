@@ -4,7 +4,7 @@ import click
 import os
 import shutil
 from pathlib import Path
-from scenario import scenarios
+from scenarios import SCENARIOS
 from git_commands import run_git_command
 from completed_scenarios import mark_scenario_completed, is_scenario_completed
 
@@ -20,9 +20,9 @@ def cli():
 def list_scenarios():
     """List all available scenarios"""
     click.echo("Available scenarios:")
-    for idx, scenario in enumerate(scenarios, 1):
-        completed = "✓" if is_scenario_completed(scenario['title']) else " "
-        click.echo(f"{idx}. [{completed}] {scenario['title']}")
+    for idx, scenario in enumerate(SCENARIOS, 1):
+        completed = "✓" if is_scenario_completed(scenario.title) else " "
+        click.echo(f"{idx}. [{completed}] {scenario.title}")
 
 def get_current_scenario():
     if os.path.exists(CURRENT_SCENARIO_FILE):
@@ -41,13 +41,13 @@ def start_scenario(scenario_name):
     if not scenario_name:
         list_scenarios()
         scenario_number = click.prompt("Enter the number of the scenario you want to start", type=int)
-        if 1 <= scenario_number <= len(scenarios):
-            scenario_name = scenarios[scenario_number - 1]['title']
+        if 1 <= scenario_number <= len(SCENARIOS):
+            scenario_name = SCENARIOS[scenario_number - 1].title
         else:
             click.echo("Invalid scenario number.")
             return
 
-    scenario = next((s for s in scenarios if s['title'] == scenario_name), None)
+    scenario = next((s for s in SCENARIOS if s.title == scenario_name), None)
     if not scenario:
         click.echo(f"Scenario '{scenario_name}' not found.")
         return
@@ -71,15 +71,15 @@ def start_scenario(scenario_name):
         return
 
     try:
-        scenario['generate_func'](REPO_PATH)
+        scenario.generate_func(REPO_PATH)
     except Exception as e:
         click.echo(f"Error generating scenario: {str(e)}")
         return
 
     set_current_scenario(scenario_name)
 
-    click.echo(scenario['description'])
-    click.echo(f"\nYour task: {scenario['task']}")
+    click.echo(scenario.description)
+    click.echo(f"\nYour task: {scenario.task}")
     click.echo(f"\nThe Git repository has been set up at: {REPO_PATH}")
     click.echo("This is a separate directory in your home folder to avoid conflicts with existing repositories.")
     click.echo("Once you've completed the task, use the 'check' command to verify your solution.")
@@ -94,7 +94,7 @@ def check(scenario_name):
             click.echo("No active scenario found. Please start a scenario first.")
             return
 
-    scenario = next((s for s in scenarios if s['title'] == scenario_name), None)
+    scenario = next((s for s in SCENARIOS if s.title == scenario_name), None)
     if not scenario:
         click.echo(f"Scenario '{scenario_name}' not found.")
         return
@@ -103,7 +103,7 @@ def check(scenario_name):
         click.echo("No active scenario found. Please start a scenario first.")
         return
 
-    result = scenario['check_func'](REPO_PATH)
+    result = scenario.check_func(REPO_PATH)
 
     if result:
         click.echo("Congratulations! You've successfully completed the task.")
@@ -121,12 +121,12 @@ def hint(scenario_name):
             click.echo("No active scenario found. Please start a scenario first.")
             return
 
-    scenario = next((s for s in scenarios if s['title'] == scenario_name), None)
+    scenario = next((s for s in SCENARIOS if s.title == scenario_name), None)
     if not scenario:
         click.echo(f"Scenario '{scenario_name}' not found.")
         return
 
-    click.echo(scenario['hint'])
+    click.echo(scenario.hint)
 
 @cli.command()
 def reset():
