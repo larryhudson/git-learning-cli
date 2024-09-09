@@ -121,6 +121,7 @@ def start_scenario(scenario_name):
     click.echo(f"\nThe Git repository has been set up at: {REPO_PATH}")
     click.echo("This is a separate directory in your home folder to avoid conflicts with existing repositories.")
     click.echo("Once you've completed the task, use the 'check' command to verify your solution.")
+    click.echo(f"\nRepo folder location: {REPO_PATH}")
 
 @cli.command()
 @click.argument('scenario_name', required=False)
@@ -132,7 +133,8 @@ def check(scenario_name):
 
     click.echo(f"\nCurrent Scenario: {scenario.title}")
     click.echo(f"Description: {scenario.description}")
-    click.echo(f"Task: {scenario.task}\n")
+    click.echo(f"Task: {scenario.task}")
+    click.echo(f"Repo folder location: {REPO_PATH}\n")
 
     result = scenario.check_func(REPO_PATH)
 
