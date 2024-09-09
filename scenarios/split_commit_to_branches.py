@@ -58,7 +58,10 @@ scenario = Scenario(
     difficulty="Hard",
     description="You've made a large commit that includes changes to multiple interdependent features. Your company has a convention where each PR should only contain one commit.",
     task="Split the 'Implement multiple interdependent features in one commit' into three separate branches, each with one commit for a single feature. Ensure that the dependencies between features are maintained.",
-    hint="Use 'git cherry-pick -n <commit>' to apply changes without committing, then create new branches and commit the changes one by one. Pay attention to the order of the features due to their dependencies.",
+    hint="You can use either interactive rebase or cherry-pick to split the commit:\n"
+         "1. For interactive rebase: Use 'git rebase -i HEAD~1', change 'pick' to 'edit' for the commit, then use 'git reset HEAD^' to unstage changes. Create new branches and commit changes one by one.\n"
+         "2. For cherry-pick: Use 'git cherry-pick -n <commit>' to apply changes without committing, then create new branches and commit the changes one by one.\n"
+         "In both cases, pay attention to the order of the features due to their dependencies.",
     generate_func=generate_scenario,
     check_func=check_scenario
 )
