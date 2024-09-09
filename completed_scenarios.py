@@ -23,3 +23,7 @@ def mark_scenario_completed(scenario_name):
 def is_scenario_completed(scenario_name):
     completed = load_completed_scenarios()
     return completed.get(scenario_name, False)
+
+def reset_completed_scenarios():
+    if os.path.exists(COMPLETED_SCENARIOS_FILE):
+        os.remove(COMPLETED_SCENARIOS_FILE)
