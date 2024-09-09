@@ -58,10 +58,15 @@ scenario = Scenario(
     difficulty="Hard",
     description="You've made a large commit that includes changes to multiple interdependent features. Your company has a convention where each PR should only contain one commit.",
     task="Split the 'Implement multiple interdependent features in one commit' into three separate branches, each with one commit for a single feature. Ensure that the dependencies between features are maintained.",
-    hint="You can use either interactive rebase or cherry-pick to split the commit:\n"
-         "1. For interactive rebase: On the branch with the complex commit, use 'git rebase -i HEAD~1', change 'pick' to 'edit' for the commit, then use 'git reset HEAD^' to unstage changes. Create new branches from this point and commit changes one by one.\n"
-         "2. For cherry-pick: Create a new branch from the commit before the complex one. Then use 'git cherry-pick -n <complex-commit-hash>' to apply changes without committing. Create new branches from this point and commit the changes one by one.\n"
-         "In both cases, pay attention to the order of the features due to their dependencies.",
+    hints=[
+        "You can use either interactive rebase or cherry-pick to split the commit.",
+        "For interactive rebase: On the branch with the complex commit, use 'git rebase -i HEAD~1', change 'pick' to 'edit' for the commit.",
+        "After editing, use 'git reset HEAD^' to unstage changes. Create new branches from this point and commit changes one by one.",
+        "For cherry-pick: Create a new branch from the commit before the complex one.",
+        "Use 'git cherry-pick -n <complex-commit-hash>' to apply changes without committing. Create new branches from this point and commit the changes one by one.",
+        "In both cases, pay attention to the order of the features due to their dependencies.",
+        "Start with feature1, then feature2, and finally feature3 to maintain the correct dependency order."
+    ],
     generate_func=generate_scenario,
     check_func=check_scenario
 )

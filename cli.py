@@ -136,7 +136,7 @@ def check(scenario_name):
 @cli.command()
 @click.argument('scenario_name', required=False)
 def hint(scenario_name):
-    """Get a hint for a specific scenario"""
+    """Get hints for a specific scenario"""
     if not scenario_name:
         scenario_name = get_current_scenario()
         if not scenario_name:
@@ -148,7 +148,20 @@ def hint(scenario_name):
         click.echo(f"Scenario '{scenario_name}' not found.")
         return
 
-    click.echo(scenario.hint)
+    hint_index = 0
+    while hint_index < len(scenario.hints):
+        click.echo(f"Hint {hint_index + 1}: {scenario.hints[hint_index]}")
+        if hint_index < len(scenario.hints) - 1:
+            choice = click.prompt("Enter 'n' for next hint or 'q' to quit", type=str).lower()
+            if choice == 'q':
+                break
+            elif choice != 'n':
+                click.echo("Invalid input. Please enter 'n' or 'q'.")
+                continue
+        hint_index += 1
+    
+    if hint_index == len(scenario.hints):
+        click.echo("No more hints available.")
 
 @cli.command()
 def reset():

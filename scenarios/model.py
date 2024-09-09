@@ -6,7 +6,7 @@ class Scenario(BaseModel):
     difficulty: str
     description: str
     task: str
-    hint: str
+    hints: list[str]
     generate_func: Callable
     check_func: Callable
 
