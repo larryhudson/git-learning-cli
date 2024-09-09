@@ -25,6 +25,16 @@ def list_scenarios(difficulty=None):
             completed = "✓" if is_scenario_completed(scenario.title) else " "
             click.echo(f"{idx}. [{completed}] {scenario.title} (Difficulty: {scenario.difficulty})")
 
+def display_scenario_info():
+    """Display detailed information about all scenarios"""
+    for idx, scenario in enumerate(SCENARIOS, 1):
+        completed = "✓" if is_scenario_completed(scenario.title) else " "
+        click.echo(f"\n{idx}. [{completed}] {scenario.title}")
+        click.echo(f"   Difficulty: {scenario.difficulty}")
+        click.echo(f"   Description: {scenario.description}")
+        click.echo(f"   Task: {scenario.task}")
+        click.echo("   " + "-" * 40)
+
 @cli.command()
 @click.option('--scenario', '-s', type=str, help='The scenario to mark as completed')
 def complete(scenario):
@@ -58,8 +68,13 @@ def set_current_scenario(scenario_name):
 
 @cli.command()
 @click.argument('scenario_name', required=False)
-def start_scenario(scenario_name):
+@click.option('--info', '-i', is_flag=True, help='Display detailed information about scenarios')
+def start_scenario(scenario_name, info):
     """Start a specific scenario"""
+    if info:
+        display_scenario_info()
+        return
+
     if not scenario_name:
         list_scenarios()
         scenario_number = click.prompt("Enter the number of the scenario you want to start", type=int)
