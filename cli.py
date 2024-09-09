@@ -37,6 +37,16 @@ def display_scenario_info():
 
 @cli.command()
 @click.option('--scenario', '-s', type=str, help='The scenario to mark as completed')
+@click.option('--info', '-i', is_flag=True, help='Display detailed information about scenarios')
+def list(scenario, info):
+    """List all available scenarios or mark a scenario as completed"""
+    if info:
+        display_scenario_info()
+    elif scenario:
+        complete(scenario)
+    else:
+        list_scenarios()
+
 def complete(scenario):
     """Mark a scenario as completed"""
     if not scenario:
